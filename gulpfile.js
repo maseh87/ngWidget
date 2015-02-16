@@ -2,8 +2,8 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var bs = require('browser-sync');
 var reload = bs.reload;
-
-
+var del = require('del');
+var vf  = require('vinyl-paths');
 var sync = require('run-sequence');
 
 // Paths to all src files
@@ -18,6 +18,11 @@ gulp.task('lint', function() {
   return gulp.src(paths.src)
     .pipe($.coffeelint())
     .pipe($.coffeelint.reporter());
+});
+
+gulp.task('clean', function() {
+  return gulp.src([paths.dist + '/**/*.**'])
+    .pipe(vf(del));
 });
 
 // compile to js with sourcemaps
@@ -57,7 +62,7 @@ gulp.task('docs', function() {
 
 });
 
-gulp.task('build', function(done) {
+gulp.task('build', ['clean'], function(done) {
   sync('lint', 'coffee', done);
 });
 
