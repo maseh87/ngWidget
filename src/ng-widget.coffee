@@ -26,7 +26,7 @@ angular.module 'ngWidget', []
     scope: _scopeOptions
 
   # Extends @ with the defaults object
-  MyDirective = ->
+  Widget = ->
     angular.extend @, defaults
     # Configurations for the directive's scope
     @scopeOptions = (option)->
