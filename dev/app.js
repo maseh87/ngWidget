@@ -13,7 +13,8 @@ angular.module("app", ['ngWidget'])
 
   widget.ready(function(scope, elem, attrs) {
     console.log(scope, 'scope');
-    console.log(elem, 'elem');
+    console.log(scope, 'scope');
+    console.log(attrs, 'attrs');
   });
 
   return widget;

@@ -50,8 +50,13 @@ angular.module 'ngWidget', []
           @scope[key] = '=' if value is 'two-way'
           @scope[key] = '&' if value is 'function'
 
+    # Alias for the link function
     @ready = (callback)->
       @link = callback
+
+    # Alias for the transclude property
+    @children = (option)->
+      @transclude = option if option is true
 
     # store the users events in the events object to use in the link function
     @on = (event, callback)->
