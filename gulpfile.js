@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var bs = require('browser-synce');
+var bs = require('browser-sync');
 var reload = bs.reload;
 
 
@@ -35,9 +35,11 @@ gulp.task('dev', ['build'], function(done) {
   bs({
     port: 9500,
     server: {
-      baseDir: ['./dev']
+      baseDir: ['./dev', './dist']
     }
   }, done);
+
+  gulp.watch(paths.dev, reload);
 });
 
 // run karma test
