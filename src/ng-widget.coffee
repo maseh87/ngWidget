@@ -3,6 +3,7 @@ angular.module 'ngWidget', []
 .provider 'Widget', ->
 
   events = {}
+  readyFn = null
   # _scopeOptions = false
   returnScope = ->
     _scopeOptions
@@ -25,17 +26,25 @@ angular.module 'ngWidget', []
         angular.forEach events, (value, key)->
           elem.off key
 
+      # Call the readyFn is there is one
+      if readyFn isnt null then readyFn.apply @, arguments
+
     transclude: false
     restrict: 'EA'
     replace: false
     scope: false
 
-  # Extends @ with the defaults object
-  Widget = ->
-    @id = 123
-    angular.extend @, defaults
+  class Widget
+    # Extends @ with the defaults object
+    constructor: ->
+      angular.extend @, defaults
+
+    # Alias for the transclude property
+    children: (option)->
+      @transclude = option if option is true
+
     # Configurations for the directive's scope
-    @scopeOptions = (option)->
+    scopeOptions: (option)->
       # scope: false === 'parent'
       @scope = false if option is 'parent'
       # scope: true === 'child'
@@ -45,19 +54,17 @@ angular.module 'ngWidget', []
         # Will have to iterate through object to convert the values
         @scope = {}
         angular.forEach option, (value, key) =>
-          console.log(@)
           @scope[key] = '@' if value is 'attrValue' or value is 'one-way'
           @scope[key] = '=' if value is 'two-way'
           @scope[key] = '&' if value is 'function'
 
-
+    # Alias for the link function
+    ready: (callback)->
+      readyFn = callback
 
     # store the users events in the events object to use in the link function
-    @on = (event, callback)->
+    on: (event, callback)->
       events[event] = callback
-
-    # Return this object
-    return @
 
   # Object to return for the injector
   return directiveObject =
