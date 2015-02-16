@@ -1,6 +1,7 @@
 angular.module('easy-directive', []).provider('easyDirective', function() {
   var MyDirective, defaults, directiveObject, events;
   events = {};
+  _scopeOptions;
   defaults = {
     template: '<div>Default ngWidget template, go change it!</div>',
     link: function(scope, elem, attrs) {
@@ -15,13 +16,35 @@ angular.module('easy-directive', []).provider('easyDirective', function() {
     },
     transclude: false,
     restrict: 'EA',
-    isoScope: function(scopeObj) {},
+    scope: _scopeOptions,
     on: function(event, callback) {
       return events.event = callback;
     }
   };
   MyDirective = function() {
-    return angular.extend(this, defaults);
+    angular.extend(this, defaults);
+    return this.scopeOptions = function(option) {
+      var _scopeOptions;
+      if (option === 'parent') {
+        _scopeOptions = 'false';
+      }
+      if (option === 'child') {
+        _scopeOptions = 'true';
+      }
+      if (angular.isObject(option)) {
+        return angular.forEach(option, function(value, key) {
+          if (value === 'attrValue' || value === 'one-way') {
+            value = '@';
+          }
+          if (value === 'two-way') {
+            value = '=';
+          }
+          if (value === 'function') {
+            return value = '&';
+          }
+        });
+      }
+    };
   };
   return directiveObject = {
     $get: function() {
