@@ -50,7 +50,8 @@ angular.module 'ngWidget', []
           @scope[key] = '=' if value is 'two-way'
           @scope[key] = '&' if value is 'function'
 
-
+    @ready = (callback)->
+      @link = callback
 
     # store the users events in the events object to use in the link function
     @on = (event, callback)->

@@ -11,5 +11,10 @@ angular.module("app", ['ngWidget'])
     'code': 'one-way'
   });
 
+  widget.ready(function(scope, elem, attrs) {
+    console.log(scope, 'scope');
+    console.log(elem, 'elem');
+  });
+
   return widget;
 });
