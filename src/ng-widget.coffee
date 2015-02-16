@@ -7,18 +7,21 @@ angular.module 'ngWidget', []
 
   # Default properties for the directive
   defaults =
-    template: '<div>Default ngWidget template, go change it!</div>'
+    template: '<div>Default ngWidget template, go change it! {{ message }}</div>'
     link: (scope, elem, attrs)->
+
       # Iterate through an object of events and callbacks
       # passing each one into elem.on
       angular.forEach events, (value, key)->
-        elem.on key, value
+        elem.on key, (e) =>
+          scope.$apply ->
+            value.apply @, [e, scope, elem, attrs]
 
       # Listen for the $destroy event to clean up
       scope.$on '$destroy', ->
         #then iterate through the elements and call element.off on each event
         angular.forEach events, (value, key)->
-          elem.off key, value
+          elem.off key,
 
     transclude: false
     restrict: 'EA'
