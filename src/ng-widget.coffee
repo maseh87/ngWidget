@@ -3,6 +3,7 @@ angular.module 'ngWidget', []
 .provider 'Widget', ->
 
   events = {}
+  readyFn = null
   # _scopeOptions = false
   returnScope = ->
     _scopeOptions
@@ -24,6 +25,9 @@ angular.module 'ngWidget', []
         #then iterate through the elements and call element.off on each event
         angular.forEach events, (value, key)->
           elem.off key
+
+      # Call the readyFn is there is one
+      if readyFn isnt null then readyFn.apply @, arguments
 
     transclude: false
     restrict: 'EA'
@@ -52,7 +56,7 @@ angular.module 'ngWidget', []
 
     # Alias for the link function
     @ready = (callback)->
-      @link = callback
+      readyFn = callback
 
     # Alias for the transclude property
     @children = (option)->
