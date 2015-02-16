@@ -47,6 +47,9 @@ angular.module 'ngWidget', []
     @on = (event, callback)->
       events.event = callback
 
+    # Return this object
+    return @
+
   # Object to return for the injector
   return directiveObject =
     $get: ->
