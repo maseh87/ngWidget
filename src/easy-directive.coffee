@@ -2,20 +2,20 @@ angular.module 'easy-directive', []
 
 .provider 'easy-directive', ->
   # Default properties for the directive
-  defaults = 
-    template: '<div>Template</div>'
+  defaults =
+    template: '<div>Default ngWidget template, go change it!</div>'
     link: (scope, elem, attrs)->
-    transclude: false  
+    transclude: false
     restrict: 'EA'
 
   # Extends @ with the defaults object
+
   MyDirective = ->
     angular.extend @, defaults
   # Object to return for the injector
-  return directiveObject = 
+  return directiveObject =
     $get: ->
       MyDirective
-    # Option for the config block of the user to overwrite the defaults 
+    # Option for the config block of the user to overwrite the defaults
     setDefaults: (config)->
       angular.extend defaults, config
-      
