@@ -17,7 +17,7 @@ angular.module 'ngWidget', []
       # Listen for the $destroy event to clean up
       scope.$on '$destroy', ->
         #then iterate through the elements and call element.off on each event
-        angular.forEach event, (value, key)->
+        angular.forEach events, (value, key)->
           elem.off key, value
 
     transclude: false
@@ -45,15 +45,12 @@ angular.module 'ngWidget', []
 
     # store the users events in the events object to use in the link function
     @on = (event, callback)->
-      events.event = callback
-
-    # Return this object
-    return @
+      events[event] = callback
 
   # Object to return for the injector
   return directiveObject =
     $get: ->
-      MyDirective
+      Widget
     # Option for the config block of the user to overwrite the defaults
     setDefaults: (config)->
       angular.extend defaults, config
