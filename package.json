@@ -1,0 +1,35 @@
+{
+  "name": "ngWidget",
+  "version": "1.0.0",
+  "description": "Easier solution for understanding and using angular's directives",
+  "main": "ng-widget.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maseh87/ngWidget.git"
+  },
+  "keywords": [
+    "angular",
+    "widget",
+    "directive",
+    "component",
+    "ng"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maseh87/ngWidget/issues"
+  },
+  "homepage": "https://github.com/maseh87/ngWidget",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
+    "gulp-coffeelint": "^0.4.0",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-util": "^3.0.3",
+    "run-sequence": "^1.0.2"
+  }
+}
