@@ -12,6 +12,13 @@ describe 'ngWidget', ->
 
     mockModule.directive 'mockDirective', (Widget)->
       testDirectiveObject = new Widget()
+
+      testDirectiveObject.scopeOptions({
+        'test1': 'one-way'
+        'test2': 'two-way'
+        'test3': 'function'
+      })
+
       testDirectiveObject
 
     module 'ngWidget', 'fake'
@@ -53,5 +60,13 @@ describe 'ngWidget', ->
       element = $compile '<mock-directive></mock-directive>'
       element $rootScope
       do $rootScope.$digest
-
       expect(testDirectiveObject).to.be.an 'object'
+
+    it 'one-way should equal @', ->
+      expect(testDirectiveObject.scope.test1).to.equal '@'
+
+    it 'two-way should equal =', ->
+      expect(testDirectiveObject.scope.test2).to.equal '='
+
+    it 'function should equal &', ->
+      expect(testDirectiveObject.scope.test3).to.equal '&'
