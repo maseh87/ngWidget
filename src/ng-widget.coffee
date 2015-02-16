@@ -34,40 +34,40 @@ angular.module 'ngWidget', []
     replace: false
     scope: false
 
-  # Extends @ with the defaults object
   Widget = ->
-    @id = 123
+    # Extends @ with the defaults object
     angular.extend @, defaults
-    # Configurations for the directive's scope
-    @scopeOptions = (option)->
-      # scope: false === 'parent'
-      @scope = false if option is 'parent'
-      # scope: true === 'child'
-      @scope = true if option is 'child'
-      # scope: {} for isolate scope
-      if angular.isObject option
-        # Will have to iterate through object to convert the values
-        @scope = {}
-        angular.forEach option, (value, key) =>
-          console.log(@)
-          @scope[key] = '@' if value is 'attrValue' or value is 'one-way'
-          @scope[key] = '=' if value is 'two-way'
-          @scope[key] = '&' if value is 'function'
-
-    # Alias for the link function
-    @ready = (callback)->
-      readyFn = callback
-
-    # Alias for the transclude property
-    @children = (option)->
-      @transclude = option if option is true
-
-    # store the users events in the events object to use in the link function
-    @on = (event, callback)->
-      events[event] = callback
 
     # Return this object
     return @
+
+  # Alias for the transclude property
+  Widget::children = (option)->
+    @transclude = option if option is true
+
+  # Configurations for the directive's scope
+  Widget::scopeOptions = (option)->
+    # scope: false === 'parent'
+    @scope = false if option is 'parent'
+    # scope: true === 'child'
+    @scope = true if option is 'child'
+    # scope: {} for isolate scope
+    if angular.isObject option
+      # Will have to iterate through object to convert the values
+      @scope = {}
+      angular.forEach option, (value, key) =>
+        console.log(@)
+        @scope[key] = '@' if value is 'attrValue' or value is 'one-way'
+        @scope[key] = '=' if value is 'two-way'
+        @scope[key] = '&' if value is 'function'
+
+  # Alias for the link function
+  Widget::ready = (callback)->
+    readyFn = callback
+
+  # store the users events in the events object to use in the link function
+  Widget::on = (event, callback)->
+    events[event] = callback
 
   # Object to return for the injector
   return directiveObject =
