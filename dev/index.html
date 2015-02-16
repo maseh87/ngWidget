@@ -5,8 +5,11 @@
   <title>dev test</title>
 </head>
 <body ng-app="app">
-  <demo></demo>
-  
+  <div ng-init="data = 'this is the code.'">
+    <demo code="{{ data }}"></demo>
+
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.13/angular.js"></script>
   <script src="ng-widget.js"></script>
   <script src="app.js"></script>
