@@ -1,4 +1,4 @@
-angular.module('easy-directive', []).provider('easyDirective', function() {
+angular.module('ngWidget', []).provider('Widget', function() {
   var MyDirective, defaults, directiveObject, events;
   events = {};
   defaults = {
