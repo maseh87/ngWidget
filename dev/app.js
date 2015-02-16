@@ -3,7 +3,6 @@ angular.module("app", ['ngWidget'])
   var widget = new Widget();
   widget.on('click', function(e, scope){
     scope.code = 'changed';
-    console.log('Clicked')
   });
 
   widget.scopeOptions({
@@ -11,9 +10,9 @@ angular.module("app", ['ngWidget'])
   });
 
   widget.ready(function(scope, elem, attrs) {
-    console.log(scope, 'scope');
-    console.log(scope, 'scope');
-    console.log(attrs, 'attrs');
+    console.log(scope, 'Here is the scope');
+    console.log(elem, 'Here is your dom element');
+    console.log(attrs, 'Here are the attributes on your directive');
   });
 
   return widget;
