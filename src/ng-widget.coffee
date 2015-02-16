@@ -53,7 +53,7 @@ angular.module 'ngWidget', []
   # Object to return for the injector
   return directiveObject =
     $get: ->
-      MyDirective
+      Widget
     # Option for the config block of the user to overwrite the defaults
     setDefaults: (config)->
       angular.extend defaults, config
