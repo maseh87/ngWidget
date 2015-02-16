@@ -1,10 +1,16 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var bs = require('browser-synce');
+var reload = bs.reload;
+
+
 var sync = require('run-sequence');
 
 // Paths to all src files
 var paths = {
-  src: ['src/**/*.coffee']
+  src: ['src/**/*.coffee'],
+  dev: ['dev/index.html', 'dev/app.js'],
+  dist: './dist'
 };
 
 // lint the coffee
@@ -19,13 +25,19 @@ gulp.task('coffee', function() {
   return gulp.src(paths.src)
     .pipe($.sourcemaps.init())
     .pipe($.coffee({ bare: true })).on('error', $.util.log)
+    .pipe($.ngAnnotate())
     .pipe($.sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./dest'));
+    .pipe(gulp.dest(paths.dist));
 });
 
 // run dev env for visually inspecting the plugin
-gulp.task('dev', function() {
-
+gulp.task('dev', ['build'], function(done) {
+  bs({
+    port: 9500,
+    server: {
+      baseDir: ['./dev']
+    }
+  }, done);
 });
 
 // run karma test
@@ -43,7 +55,9 @@ gulp.task('docs', function() {
 
 });
 
-gulp.task('build', ['lint', 'coffee']);
+gulp.task('build', function(done) {
+  sync('lint', 'coffee', done);
+});
 
 gulp.task('default', ['build'], function() {
   gulp.watch(paths.src, ['lint', 'coffee']);
