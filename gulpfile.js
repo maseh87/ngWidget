@@ -5,12 +5,13 @@ var reload = bs.reload;
 var del = require('del');
 var vf  = require('vinyl-paths');
 var sync = require('run-sequence');
-
+var karma = require('karma').server;
 // Paths to all src files
 var paths = {
   src: ['src/**/*.coffee'],
   dev: ['dev/index.html', 'dev/app.js'],
-  dist: './dist'
+  dist: './dist',
+  specs: 'specs/**/*.coffee'
 };
 
 // lint the coffee
@@ -47,9 +48,17 @@ gulp.task('dev', ['build'], function(done) {
   gulp.watch(paths.dev, reload);
 });
 
+gulp.task('build-test', function() {
+  return gulp.src(paths.specs)
+    .pipe($.coffee())
+    .pipe(gulp.dest('./specs'));
+});
 // run karma test
-gulp.task('test', function() {
-
+gulp.task('test', ['build-test'], function(done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
 });
 
 // for ci, use phantom

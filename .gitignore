@@ -3,3 +3,4 @@ dist/
 build/
 .DS_Store
 bower_components
+specs/**/*.js

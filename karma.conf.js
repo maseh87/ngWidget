@@ -10,7 +10,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai'],
 
 
     // list of files / patterns to load in the browser
@@ -18,9 +18,10 @@ module.exports = function(config) {
       'bower_components/angular/angular.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
 
-      'src/**/*.coffee',
-
-      'spec/**/*.coffe'
+      // 'src/**/*.coffee',
+      // 'specs/**/*.coffee'
+      'specs/**/**.js',
+      'dist/ng-widget.js'
     ],
 
     // list of files to exclude
@@ -31,8 +32,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'specs/**/*.coffee': ['coffee'],
-      'src/**/*.coffee': ['coffee']
+      './specs/**/*.coffee': ['coffee'],
+      './src/**/*.coffee': ['coffee']
     },
 
 
