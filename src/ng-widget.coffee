@@ -14,9 +14,9 @@ angular.module 'ngWidget', []
 
       # Iterate through an object of events and callbacks
       # passing each one into elem.on
-      angular.forEach events, (value, key)->
-        elem.on key, (e) ->
-          scope.$apply ->
+      angular.forEach events, (value, key) =>
+        elem.on key, (e) =>
+          scope.$apply =>
             value.apply @, [e, scope, elem, attrs]
 
       # Listen for the $destroy event to clean up
