@@ -4,7 +4,6 @@ angular.module 'ngWidget', []
 
   events = {}
 
-
   # Default properties for the directive
   defaults =
     template: '<div>Default ngWidget template, go change it!</div>'
