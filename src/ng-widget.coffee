@@ -17,7 +17,7 @@ angular.module 'ngWidget', []
       # Listen for the $destroy event to clean up
       scope.$on '$destroy', ->
         #then iterate through the elements and call element.off on each event
-        angular.forEach event, (value, key)->
+        angular.forEach events, (value, key)->
           elem.off key, value
 
     transclude: false
@@ -27,6 +27,7 @@ angular.module 'ngWidget', []
 
   # Extends @ with the defaults object
   Widget = ->
+    @id = 123
     angular.extend @, defaults
     # Configurations for the directive's scope
     @scopeOptions = (option)->
@@ -45,7 +46,7 @@ angular.module 'ngWidget', []
 
     # store the users events in the events object to use in the link function
     @on = (event, callback)->
-      events.event = callback
+      events[event] = callback
 
     # Return this object
     return @
