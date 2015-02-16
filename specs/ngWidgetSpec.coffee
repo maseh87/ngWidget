@@ -1,8 +1,8 @@
 describe 'ngWidget', ->
+  testDirectiveObject = null
   ngWidgetProvider = null
   mockModule = null
   defaults = null
-  testDirectiveObject = null
 
   beforeEach ->
     mockModule = angular.module 'fake', ->
@@ -10,16 +10,19 @@ describe 'ngWidget', ->
     mockModule.config (WidgetProvider) ->
       ngWidgetProvider = WidgetProvider
 
+    mockModule.directive 'mockDirective', (Widget)->
+      testDirectiveObject = new Widget()
+      testDirectiveObject
+
     module 'ngWidget', 'fake'
     inject ->
-
   describe 'Defaults', ->
     it 'should have function to override defaults', ->
       expect(ngWidgetProvider.setDefaults).to.be.a 'function'
 
       defaults = ngWidgetProvider.setDefaults()
 
-    it 'shoud have a defaults object', ->  
+    it 'shoud have a defaults object', ->
       expect(defaults).to.be.a 'object'
 
     it 'should have a transclude property equal to false', ->
@@ -37,22 +40,18 @@ describe 'ngWidget', ->
     it 'should have a default template', ->
       expect(defaults.template).to.be.a 'string'
 
-  # describe 'Scope Options', ->
-  #   mockModule.directive 'mockDirective', (Widget)->
-  #     testDirectiveObject = new Widget()
-  #   it 'should be an object', ->
-  #     expect(testDirectiveObject).to.be.an 'object'
+# Test the Directive's scope
+  describe 'Scope Options', ->
+    $compile = null
+    $rootScope = null
 
+    beforeEach inject (_$compile_, _$rootScope_)->
+      $compile = _$compile_
+      $rootScope = _$rootScope_
 
+    it 'should allow you options to the scope', ->
+      element = $compile '<mock-directive></mock-directive>'
+      element $rootScope
+      do $rootScope.$digest
 
-
-
-
-
-
-
-
-
-
-
-      
+      expect(testDirectiveObject).to.be.an 'object'
