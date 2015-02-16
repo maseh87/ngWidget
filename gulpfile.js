@@ -62,8 +62,16 @@ gulp.task('test', ['build-test'], function(done) {
 });
 
 // for ci, use phantom
-gulp.task('test:ci', function(){
+gulp.task('test:ci', ['build-test'], function(done){
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true,
+    browsers: ['PhantomJS']
+  }, done);
+});
 
+gulp.task('travis', function(done) {
+  sync('build', 'test:ci', done);
 });
 
 // generate docs from our comments

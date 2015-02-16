@@ -11,5 +11,9 @@ describe 'ngWidget', () ->
     inject () ->
 
   describe 'Defaults', () ->
-    it 'should have defaults', () ->
-      expect(true).to.be.true
+    it 'should have function to override defaults', () ->
+      expect(ngWidgetProvider.setDefaults).to.be.a 'function'
+
+      defaults = ngWidgetProvider.setDefaults()
+      
+      expect(defaults).to.be.a 'object'

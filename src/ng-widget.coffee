@@ -8,7 +8,8 @@ angular.module 'ngWidget', []
   defaults =
     template: '<div>Default ngWidget template, go change it!</div>'
     link: (scope, elem, attrs)->
-      # Iterate through an object of events and callbacks passing each one into elem.on
+      # Iterate through an object of events and
+      # callbacks passing each one into elem.on
       angular.forEach events, (value, key)->
         elem.on key, value
 
