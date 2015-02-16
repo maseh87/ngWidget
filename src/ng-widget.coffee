@@ -3,7 +3,7 @@ angular.module 'ngWidget', []
 .provider 'Widget', ->
 
   events = {}
-  _scopeOptions
+  _scopeOptions = false
 
   # Default properties for the directive
   defaults =
@@ -22,10 +22,8 @@ angular.module 'ngWidget', []
 
     transclude: false
     restrict: 'EA'
+    replace: false
     scope: _scopeOptions
-    on: (event, callback)->
-      # store the users events in the events object to use in the link function
-      events.event = callback
 
   # Extends @ with the defaults object
   MyDirective = ->
@@ -44,6 +42,11 @@ angular.module 'ngWidget', []
           value = '=' if value is 'two-way'
           value = '&' if value is 'function'
 
+
+    # store the users events in the events object to use in the link function
+    @on = (event, callback)->
+      events.event = callback
+  
   # Object to return for the injector
   return directiveObject =
     $get: ->
