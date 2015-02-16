@@ -1,6 +1,6 @@
-angular.module 'easy-directive', []
+angular.module 'ngWidget', []
 
-.provider 'easyDirective', ->
+.provider 'Widget', ->
 
   events = {}
   _scopeOptions
