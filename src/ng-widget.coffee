@@ -27,6 +27,7 @@ angular.module 'ngWidget', []
 
   # Extends @ with the defaults object
   Widget = ->
+    @id = 123
     angular.extend @, defaults
     # Configurations for the directive's scope
     @scopeOptions = (option)->
@@ -46,6 +47,9 @@ angular.module 'ngWidget', []
     # store the users events in the events object to use in the link function
     @on = (event, callback)->
       events[event] = callback
+
+    # Return this object
+    return @
 
   # Object to return for the injector
   return directiveObject =
